@@ -1,0 +1,23 @@
+<h1>Screens</h1>
+
+<table>
+  <tr>
+    <th>Text</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @screens.each do |screen| %>
+	<tr>
+	<td><%= screen.text %></td>
+	<td><%= link_to 'Show', screen %></td>
+	<td><%= link_to 'Edit', edit_screen_path(screen) %></td>
+	<td><%= link_to 'Destroy', screen_path(screen),
+	method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	</tr>
+<% end %>
+
+</table>
+
+<%= link_to 'New screen', new_screen_path %>
