@@ -28,6 +28,8 @@ class ScreensController < ApplicationController
 	def create
 		#render text: params[:screen].inspect
 		@screen = Screen.new(params[:screen].permit(:title, :text))
+		#broadcast("/screens/#{@screen}", @screen)
+		broadcast("/screens", @screen)
 		if @screen.save
 			redirect_to @screen
 		else
@@ -40,5 +42,13 @@ class ScreensController < ApplicationController
 		@screen.destroy
 		redirect_to screens_path
 	end
+
+  private
+
+    def broadcast(channel, object)
+      screen = {:channel => channel, :data => {:object => object, :channel => channel, :type => "screen"}, :ext => {:auth_token => FAYE_TOKEN}}
+      uri = URI.parse("http://localhost:9292/faye")
+      Net::HTTP.post_form(uri, :message => message.to_json)
+    end
 
 end
