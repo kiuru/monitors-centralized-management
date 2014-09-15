@@ -21,17 +21,3 @@
 </table>
 
 <%= link_to 'New screen', new_screen_path %>
-
-<script type="text/javascript">
-	//channel = document.URL.split('/').slice(-1)[0];
-	faye = new Faye.Client('http://localhost:9292/faye');
-	faye.subscribe("/screens", function (data) {
-		console.log(data);
-		if (data.type == "create") {
-			$("#screens").append("<tr><td>"+ data.object.text +"</td></tr>")
-		} else if (data.type == "edit") {
-
-			$("#screen_"+data.object.id).html("<tr><td>"+ data.object.text +"</td></tr>")
-		}
-	});
-</script>

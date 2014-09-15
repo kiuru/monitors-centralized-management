@@ -4,6 +4,10 @@ class ScreensController < ApplicationController
 		@screens = Screen.all
 	end
 
+	def slideshow
+		@screens = Screen.all
+	end
+
 	def new
 		@screen = Screen.new
 	end

@@ -1,0 +1,18 @@
+<h1>Slideshows</h1>
+
+
+<% @screens.each do |screen| %>
+		<span><%= screen.text %></span><br />
+<% end %>
+
+<script type="text/javascript">
+	faye = new Faye.Client('http://localhost:9292/faye');
+	faye.subscribe("/screens", function (data) {
+		console.log(data);
+		if (data.type == "create") {
+			$("#screens").append("<tr><td>"+ data.object.text +"</td></tr>")
+		} else if (data.type == "edit") {
+			$("#screen_"+data.object.id).html("<tr><td>"+ data.object.text +"</td></tr>")
+		}
+	});
+</script>
