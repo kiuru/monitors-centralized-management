@@ -45,6 +45,7 @@ class ScreensController < ApplicationController
 	def destroy
 		@screen = Screen.find(params[:id])
 		@screen.destroy
+		broadcast("/screens", @screen, "destroy")
 		redirect_to screens_path
 	end
 
